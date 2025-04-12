@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard | SmartHealthAI</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to right, #e0f2f1, #f1f8e9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+
+  .auth-container {
+    width: 100%;
+    max-width: 950px;
+    padding: 30px;
+  }
+
+  .form-box {
+    background: #fff;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .form-box h2 {
+    margin-bottom: 10px;
+    color: #004d40;
+  }
+
+  .form-box p {
+    margin-bottom: 25px;
+    color: #555;
+    font-size: 16px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+  }
+
+  table th,
+  table td {
+    text-align: left;
+    padding: 12px 15px;
+  }
+
+  table thead {
+    background-color: #f1f1f1;
+  }
+
+  table tr:nth-child(even) {
+    background-color: #fafafa;
+  }
+
+  table tr:hover {
+    background-color: #e0f7fa;
+  }
+
+  .btn {
+    padding: 8px 16px;
+    background-color: #00796b;
+    color: white;
+    border: none;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 14px;
+  }
+
+  .btn:hover {
+    background-color: #004d40;
+  }
+
+  .btn.red {
+    background-color: #d32f2f;
+  }
+
+  .btn.red:hover {
+    background-color: #b71c1c;
+  }
+
+  .status-available {
+    color: green;
+    font-weight: bold;
+  }
+
+  .status-leave {
+    color: red;
+    font-weight: bold;
+  }
+
+  .top-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+</style>
+<body>
+  <div class="auth-container">
+    <div class="form-box">
+      <div class="top-actions">
+        <h2>{{ hospital.name }} - Admin Dashboard</h2>
+        <div style="display: flex; gap: 10px;">
+          <a href="{{ url_for('add_doctor') }}">
+            <button class="btn">➕ Add Doctor</button>
+          </a>
+          <a href="{{ url_for('logout') }}">
+            <button class="btn red">Logout</button>
+          </a>
+        </div>
+      </div>
+      
+
+      <p>Manage your doctors and schedules</p>
+
+      {% if doctors %}
+        <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+          <thead>
+            <tr style="background-color: #f1f1f1;">
+              <th style="padding: 10px; text-align: left;">Doctor Name</th>
+              <th>Specialization</th>
+              <th>Timings</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for doc in doctors %}
+              <tr style="border-bottom: 1px solid #ddd;">
+                <td style="padding: 10px;">{{ doc.name }}</td>
+                <td>{{ doc.specialization }}</td>
+                <td>{{ doc.timings }}</td>
+                <td>
+                  {% if doc.on_leave %}
+                    <span class="status-leave">On Leave</span>
+                  {% else %}
+                    <span class="status-available">Available</span>
+                  {% endif %}
+                </td>
+                <td>
+                  <a href="{{ url_for('toggle_leave', doctor_id=doc._id) }}">
+                    {% if doc.on_leave %}
+                      <button class="btn">Mark Available</button>
+                    {% else %}
+                      <button class="btn red">Mark On Leave</button>
+                    {% endif %}
+                  </a>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <p>No doctors added yet.</p>
+      {% endif %}
+    </div>
+  </div>
+</body>
+</html>

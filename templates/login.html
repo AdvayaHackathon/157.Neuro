@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login | SmartHealthAI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<style>
+    * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to right, #e0f2f1, #f1f8e9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.auth-container {
+  width: 100%;
+  max-width: 450px;
+  padding: 30px;
+}
+
+.form-box {
+  background: #fff;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.form-box h2 {
+  margin-bottom: 10px;
+  color: #004d40;
+  font-size: 1.8rem;
+}
+
+.form-box p {
+  margin-bottom: 25px;
+  color: #555;
+  font-size: 1rem;
+}
+
+form label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+form input,
+form select {
+  width: 100%;
+  padding: 10px 14px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  font-size: 1rem;
+}
+
+form input:focus,
+form select:focus {
+  outline: none;
+  border-color: #00796b;
+  background-color: #fff;
+}
+
+.btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #00796b;
+  color: white;
+  border: none;
+  font-weight: bold;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background-color: #004d40;
+}
+
+.switch {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 0.95rem;
+}
+
+.switch a {
+  color: #00796b;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.switch a:hover {
+  text-decoration: underline;
+}
+
+</style>
+
+<body>
+  <div class="auth-container">
+    <div class="form-box">
+      <h2>Welcome Back 👋</h2>
+      <p>Login to manage appointments and health records</p>
+      <form action="/login" method="POST">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <div style="margin-bottom: 15px;">
+              {% for category, message in messages %}
+                <div style="padding: 10px; border-radius: 6px; color: white; background-color:
+                    {% if category == 'error' %}#e53935
+                    {% elif category == 'success' %}#43a047
+                    {% else %}#039be5
+                    {% endif %}; margin-bottom: 10px;">
+                  {{ message }}
+                </div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+      
+      <form action="/login" method="POST">
+        
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" required>
+
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" required>
+
+        <label for="role">Select Role</label>
+        <select name="role" id="role" required>
+          <option value="">-- Select Role --</option>
+          <option value="patient">Patient</option>
+          <option value="doctor">Doctor</option>
+          <option value="admin">Admin</option>
+        </select>
+
+        <button type="submit" class="btn">Login</button>
+      </form>
+      <p class="switch">Don't have an account? <a href="/register">Register Here</a></p>
+    </div>
+  </div>
+</body>
+</html>

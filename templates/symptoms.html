@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Report Symptoms | SmartHealthAI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #e0f2f1, #f1f8e9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .auth-container {
+      width: 100%;
+      max-width: 450px;
+      padding: 30px;
+    }
+
+    .form-box {
+      background: #fff;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .form-box h2 {
+      margin-bottom: 10px;
+      color: #004d40;
+      font-size: 1.8rem;
+    }
+
+    .form-box p {
+      margin-bottom: 25px;
+      color: #555;
+      font-size: 1rem;
+    }
+
+    form label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 6px;
+      color: #333;
+    }
+
+    form input,
+    form select,
+    form textarea {
+      width: 100%;
+      padding: 10px 14px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+      font-size: 1rem;
+    }
+
+    form input:focus,
+    form select:focus,
+    form textarea:focus {
+      outline: none;
+      border-color: #00796b;
+      background-color: #fff;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px;
+      background-color: #00796b;
+      color: white;
+      border: none;
+      font-weight: bold;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #004d40;
+    }
+  </style>
+</head>
+<body>
+  <div class="auth-container">
+    <div class="form-box">
+      <h2>📝 Report Your Symptoms</h2>
+      <p>Describe how you're feeling so we can help you better.</p>
+
+      <form action="/submit-symptoms" method="POST">
+        <label for="symptoms">Symptoms</label>
+        <textarea name="symptoms" id="symptoms" placeholder="e.g. Fever, headache, nausea..." required></textarea>
+
+        <label for="duration">Duration (in days)</label>
+        <input type="number" name="duration" id="duration" min="1" required>
+
+        <label for="severity">Severity</label>
+        <select name="severity" id="severity" required>
+          <option value="">Select severity</option>
+          <option value="mild">Mild</option>
+          <option value="moderate">Moderate</option>
+          <option value="severe">Severe</option>
+        </select>
+
+        <button type="submit" class="btn">Submit</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

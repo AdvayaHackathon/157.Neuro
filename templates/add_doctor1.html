@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Add Doctor | SmartHealthAI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #e0f2f1, #f1f8e9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .auth-container {
+      width: 100%;
+      max-width: 600px;
+      padding: 30px;
+    }
+
+    .form-box {
+      background: #fff;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .form-box h2 {
+      margin-bottom: 15px;
+      color: #004d40;
+      font-size: 1.8rem;
+    }
+
+    .form-box p {
+      margin-bottom: 25px;
+      color: #555;
+      font-size: 1rem;
+    }
+
+    form label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 6px;
+      color: #333;
+    }
+
+    form input,
+    form select,
+    form time {
+      width: 100%;
+      padding: 10px 14px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+      font-size: 1rem;
+    }
+
+    form input:focus,
+    form select:focus {
+      outline: none;
+      border-color: #00796b;
+      background-color: #fff;
+    }
+
+    .days-checkboxes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .days-checkboxes label {
+      font-weight: normal;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px;
+      background-color: #00796b;
+      color: white;
+      border: none;
+      font-weight: bold;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #004d40;
+    }
+  </style>
+</head>
+<body>
+  <div class="auth-container">
+    <div class="form-box">
+      <h2>Add Doctor 🩺</h2>
+      <p>Fill in the doctor's details, availability, and settings</p>
+
+      <form action="/add-doctor" method="POST">
+        <!-- Doctor Personal Info -->
+        <label for="name">Doctor Name</label>
+        <input type="text" name="name" required />
+
+        <label for="specialization">Specialization</label>
+        <input type="text" name="specialization" required />
+
+        <label for="email">Email</label>
+        <input type="email" name="email" required />
+
+        <label for="phone">Phone Number</label>
+        <input type="tel" name="phone" required />
+
+        <!-- Password Setup -->
+        <label for="password">Password</label>
+        <input type="password" name="password" required />
+
+        <!-- Availability -->
+        <label>Available Days</label>
+        <div class="days-checkboxes">
+          <label><input type="checkbox" name="available_days" value="Mon" /> Mon</label>
+          <label><input type="checkbox" name="available_days" value="Tue" /> Tue</label>
+          <label><input type="checkbox" name="available_days" value="Wed" /> Wed</label>
+          <label><input type="checkbox" name="available_days" value="Thu" /> Thu</label>
+          <label><input type="checkbox" name="available_days" value="Fri" /> Fri</label>
+          <label><input type="checkbox" name="available_days" value="Sat" /> Sat</label>
+          <label><input type="checkbox" name="available_days" value="Sun" /> Sun</label>
+        </div>
+
+        <label for="available_from">Available From</label>
+        <input type="time" name="available_from" required />
+
+        <label for="available_to">Available To</label>
+        <input type="time" name="available_to" required />
+        
+        <label for="experience">Years of Experience</label>
+        <input type="number" name="experience" min="0" required />
+
+        <label for="on_leave">Currently on Leave?</label>
+        <select name="on_leave" required>
+          <option value="false">No</option>
+          <option value="true">Yes</option>
+        </select>
+
+        <button type="submit" class="btn">Add Doctor</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

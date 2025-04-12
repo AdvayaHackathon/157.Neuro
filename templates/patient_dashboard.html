@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient Dashboard | Smart Healthcare System</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f4f4;
+    margin: 0;
+    padding: 0;
+  }
+
+  .dashboard-container {
+    max-width: 900px;
+    width: 95%;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  }
+
+  header {
+    margin-bottom: 20px;
+  }
+
+  nav ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    padding: 0;
+  }
+
+  nav ul li {
+    display: inline;
+  }
+
+  nav a,
+  .book-btn {
+    padding: 10px 16px;
+    font-size: 15px;
+    background-color: #00796b;
+    border: none;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+
+  nav a:hover,
+  .book-btn:hover {
+    background-color: #004d40;
+  }
+
+  .dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+  }
+
+  .dashboard-header h2 {
+    color: #004d40;
+    font-size: 22px;
+  }
+
+  .dashboard-content h3 {
+    color: #00796b;
+    margin-bottom: 20px;
+  }
+
+  .history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .history-card {
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+  }
+
+  .history-card p {
+    margin-bottom: 5px;
+    color: #333;
+  }
+
+  .reminder-list {
+    list-style-type: none;
+    padding-left: 0;
+    margin-top: 10px;
+  }
+
+  .reminder-list li {
+    background-color: #eef6f6;
+    padding: 10px 14px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    color: #333;
+    font-size: 0.95rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+  }
+
+</style>
+<body>
+  <div class="dashboard-container">
+    <header>
+      <nav>
+        <ul>
+          <li><a href="{{ url_for('logout') }}">Logout</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <div class="dashboard-header">
+      <h2>👤 Welcome, {{ patient.name }}</h2>
+      {% if not medical_history %}
+        <a href="/report-symptoms"><button class="book-btn">Book Token</button></a>
+      {% endif %}
+    </div>
+
+    <div class="dashboard-sections">
+
+      <!-- Medical History Section -->
+      <div class="dashboard-content">
+        <h3>📋 Medical History</h3>
+        {% if medical_history %}
+          <div class="history-list">
+            {% for record in medical_history %}
+              <div class="history-card">
+                <p><strong>Date:</strong> {{ record.date }}</p>
+                <p><strong>Doctor:</strong> {{ record.doctor }}</p>
+                <p><strong>Diagnosis:</strong> {{ record.diagnosis }}</p>
+                <p><strong>Prescription:</strong> {{ record.prescription }}</p>
+              </div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <p style="color: #777;">No medical history found.</p>
+        {% endif %}
+      </div>
+
+      <!-- Upcoming Appointments Section -->
+      <div class="dashboard-content">
+        <h3>📅 Upcoming Appointments</h3>
+        {% if upcoming_appointments %}
+          <div class="history-list">
+            {% for appointment in upcoming_appointments %}
+              <div class="history-card">
+                <p><strong>Date:</strong> {{ appointment.date }}</p>
+                <p><strong>Status:</strong> {{ appointment.status }}</p>
+              </div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <p style="color: #777;">No upcoming appointments.</p>
+        {% endif %}
+      </div>
+
+      <!-- Digital Prescriptions Section -->
+      <div class="dashboard-content">
+        <h3>💊 Digital Prescriptions</h3>
+        {% if prescriptions %}
+          <div class="history-list">
+            {% for prescription in prescriptions %}
+              <div class="history-card">
+                <p><strong>Medicines:</strong> {{ prescription.medication }}</p>
+                <p><strong>Dosage:</strong> {{ prescription.dosage }}</p>
+                <p><strong>Frequency:</strong> {{ prescription.frequency }} times/day</p>
+                <p><strong>Duration:</strong> {{ prescription.duration }} days</p>
+                <p><strong>Date:</strong> {{ prescription.date }}</p>
+              </div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <p style="color: #777;">No digital prescriptions available.</p>
+        {% endif %}
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>
